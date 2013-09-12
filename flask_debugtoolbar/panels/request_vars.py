@@ -40,7 +40,7 @@ class RequestVarsDebugPanel(DebugPanel):
             'view_func': '%s.%s' % (self.view_func.__module__, self.view_func.__name__) if self.view_func else '[unknown]',
             'view_args': self.view_args,
             'view_kwargs': self.view_kwargs or {},
-            'session': self.session.items(),
+            'session': list(self.session.items()),
         })
 
         return self.render('panels/request_vars.html', context)

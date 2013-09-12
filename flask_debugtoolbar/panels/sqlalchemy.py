@@ -113,7 +113,7 @@ def sql_select():
     result = engine.execute(statement, params)
     return g.debug_toolbar.render('panels/sqlalchemy_select.html', {
         'result': result.fetchall(),
-        'headers': result.keys(),
+        'headers': list(result.keys()),
         'sql': format_sql(statement, params),
         'duration': float(request.args['duration']),
     })
@@ -131,7 +131,7 @@ def sql_explain():
     result = engine.execute(query, params)
     return g.debug_toolbar.render('panels/sqlalchemy_explain.html', {
         'result': result.fetchall(),
-        'headers': result.keys(),
+        'headers': list(result.keys()),
         'sql': format_sql(statement, params),
         'duration': float(request.args['duration']),
     })

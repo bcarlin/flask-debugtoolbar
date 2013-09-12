@@ -1,4 +1,4 @@
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 from flask import url_for, current_app
 from werkzeug.utils import import_string
@@ -24,7 +24,7 @@ class DebugToolbar(object):
         Populate debug panels
         """
         activated = self.request.cookies.get('fldt_active', '')
-        activated = urllib.unquote(activated).split(';')
+        activated = urllib.parse.unquote(activated).split(';')
 
         for panel_path in current_app.config['DEBUG_TB_PANELS']:
             panel_class = self._import_panel(panel_path)
@@ -54,7 +54,7 @@ class DebugToolbar(object):
 
         try:
             panel_class = import_string(path)
-        except ImportError, e:
+        except ImportError as e:
             current_app.logger.warning('Disabled %s due to ImportError: %s', path, e)
             panel_class = None
 
